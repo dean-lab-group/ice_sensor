@@ -1,0 +1,187 @@
+:ok
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+event: spark/flash/status
+data: {"data":"started ","ttl":60,"published_at":"2021-05-26T17:57:03.019Z","coreid":"1c002a001247353236343033"}
+
+event: spark/device/diagnostics/update
+data: {"data":"{\"device\":{\"network\":{\"signal\":{\"at\":\"Wi-Fi\",\"strength\":96,\"strength_units\":\"%\",\"strengthv\":-52,\"strengthv_units\":\"dBm\",\"strengthv_type\":\"RSSI\",\"quality\":100,\"quality_units\":\"%\",\"qualityv\":40,\"qualityv_units\":\"dB\",\"qualityv_type\":\"SNR\"},\"connection\":{\"status\":\"connected\",\"error\":0,\"disconnects\":0,\"attempts\":1,\"disconnect_reason\":\"none\"}},\"cloud\":{\"connection\":{\"status\":\"connected\",\"error\":0,\"attempts\":1,\"disconnects\":0,\"disconnect_reason\":\"none\"},\"coap\":{\"transmit\":0,\"retransmit\":0,\"unack\":0,\"round_trip\":0},\"publish\":{\"rate_limited\":0}},\"system\":{\"uptime\":80695,\"memory\":{\"used\":30320,\"total\":82944}}},\"service\":{\"device\":{\"status\":\"ok\"},\"cloud\":{\"uptime\":80692,\"publish\":{\"sent\":2}},\"coap\":{\"round_trip\":167}}}","ttl":60,"published_at":"2021-05-26T17:57:03.188Z","coreid":"1c002a001247353236343033"}
+
+event: spark/flash/status
+data: {"data":"success ","ttl":60,"published_at":"2021-05-26T17:57:04.315Z","coreid":"1c002a001247353236343033"}
+
+event: spark/status
+data: {"data":"online","ttl":60,"published_at":"2021-05-26T17:57:08.328Z","coreid":"1c002a001247353236343033"}
+
+event: spark/device/app-hash
+data: {"data":"CDE07BFA06BCE311736F347241B774C910765E0E168CA06DF188C3AFB13524C7","ttl":60,"published_at":"2021-05-26T17:57:08.335Z","coreid":"1c002a001247353236343033"}
+
+event: spark/device/last_reset
+data: {"data":"update","ttl":60,"published_at":"2021-05-26T17:57:08.349Z","coreid":"1c002a001247353236343033"}
+
+event: particle/device/updates/enabled
+data: {"data":"true","ttl":60,"published_at":"2021-05-26T17:57:08.349Z","coreid":"1c002a001247353236343033"}
+
+event: particle/device/updates/forced
+data: {"data":"false","ttl":60,"published_at":"2021-05-26T17:57:08.350Z","coreid":"1c002a001247353236343033"}
+
+event: particle/device/updates/pending
+data: {"data":"false","ttl":60,"published_at":"2021-05-26T17:57:09.386Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.370080","ttl":60,"published_at":"2021-05-26T17:57:11.324Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.372478","ttl":60,"published_at":"2021-05-26T17:57:15.327Z","coreid":"1c002a001247353236343033"}
+
+event: spark/device/diagnostics/update
+data: {"data":"{\"device\":{\"network\":{\"signal\":{\"at\":\"Wi-Fi\",\"strength\":96,\"strength_units\":\"%\",\"strengthv\":-52,\"strengthv_units\":\"dBm\",\"strengthv_type\":\"RSSI\",\"quality\":100,\"quality_units\":\"%\",\"qualityv\":40,\"qualityv_units\":\"dB\",\"qualityv_type\":\"SNR\"},\"connection\":{\"status\":\"connected\",\"error\":0,\"disconnects\":0,\"attempts\":1,\"disconnect_reason\":\"none\"}},\"cloud\":{\"connection\":{\"status\":\"connected\",\"error\":0,\"attempts\":1,\"disconnects\":0,\"disconnect_reason\":\"none\"},\"coap\":{\"transmit\":0,\"retransmit\":0,\"unack\":0,\"round_trip\":0},\"publish\":{\"rate_limited\":0}},\"system\":{\"uptime\":9,\"memory\":{\"used\":32128,\"total\":82944}}},\"service\":{\"device\":{\"status\":\"ok\"},\"cloud\":{\"uptime\":7,\"publish\":{\"sent\":4}},\"coap\":{\"round_trip\":1555}}}","ttl":60,"published_at":"2021-05-26T17:57:15.399Z","coreid":"1c002a001247353236343033"}
+
+event: spark/device/diagnostics/update
+data: {"data":"{\"device\":{\"network\":{\"signal\":{\"at\":\"Wi-Fi\",\"strength\":96,\"strength_units\":\"%\",\"strengthv\":-52,\"strengthv_units\":\"dBm\",\"strengthv_type\":\"RSSI\",\"quality\":100,\"quality_units\":\"%\",\"qualityv\":40,\"qualityv_units\":\"dB\",\"qualityv_type\":\"SNR\"},\"connection\":{\"status\":\"connected\",\"error\":0,\"disconnects\":0,\"attempts\":1,\"disconnect_reason\":\"none\"}},\"cloud\":{\"connection\":{\"status\":\"connected\",\"error\":0,\"attempts\":1,\"disconnects\":0,\"disconnect_reason\":\"none\"},\"coap\":{\"transmit\":0,\"retransmit\":0,\"unack\":0,\"round_trip\":0},\"publish\":{\"rate_limited\":0}},\"system\":{\"uptime\":10,\"memory\":{\"used\":30864,\"total\":82944}}},\"service\":{\"device\":{\"status\":\"ok\"},\"cloud\":{\"uptime\":8,\"publish\":{\"sent\":4}},\"coap\":{\"round_trip\":1555}}}","ttl":60,"published_at":"2021-05-26T17:57:16.421Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.390727","ttl":60,"published_at":"2021-05-26T17:57:19.326Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.437218","ttl":60,"published_at":"2021-05-26T17:57:23.328Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.441039","ttl":60,"published_at":"2021-05-26T17:57:27.331Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.440329","ttl":60,"published_at":"2021-05-26T17:57:31.334Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.430414","ttl":60,"published_at":"2021-05-26T17:57:35.329Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.358438","ttl":60,"published_at":"2021-05-26T17:57:39.330Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.373877","ttl":60,"published_at":"2021-05-26T17:57:43.331Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.448540","ttl":60,"published_at":"2021-05-26T17:57:47.334Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.379659","ttl":60,"published_at":"2021-05-26T17:57:51.333Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.374282","ttl":60,"published_at":"2021-05-26T17:57:55.334Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.440383","ttl":60,"published_at":"2021-05-26T17:57:59.336Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.435678","ttl":60,"published_at":"2021-05-26T17:58:03.337Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.400083","ttl":60,"published_at":"2021-05-26T17:58:07.337Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.377117","ttl":60,"published_at":"2021-05-26T17:58:11.338Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.371448","ttl":60,"published_at":"2021-05-26T17:58:15.342Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.433810","ttl":60,"published_at":"2021-05-26T17:58:19.341Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.447296","ttl":60,"published_at":"2021-05-26T17:58:23.346Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.439034","ttl":60,"published_at":"2021-05-26T17:58:27.342Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.444313","ttl":60,"published_at":"2021-05-26T17:58:31.345Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.383338","ttl":60,"published_at":"2021-05-26T17:58:35.350Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.385312","ttl":60,"published_at":"2021-05-26T17:58:39.347Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.369404","ttl":60,"published_at":"2021-05-26T17:58:43.348Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.414175","ttl":60,"published_at":"2021-05-26T17:58:47.347Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.371827","ttl":60,"published_at":"2021-05-26T17:58:51.348Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.370282","ttl":60,"published_at":"2021-05-26T17:58:55.348Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.386868","ttl":60,"published_at":"2021-05-26T17:58:59.453Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.465126","ttl":60,"published_at":"2021-05-26T17:59:03.454Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.438457","ttl":60,"published_at":"2021-05-26T17:59:07.473Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.364756","ttl":60,"published_at":"2021-05-26T17:59:11.467Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.357838","ttl":60,"published_at":"2021-05-26T17:59:15.465Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"0.003341","ttl":60,"published_at":"2021-05-26T17:59:19.464Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"0.016514","ttl":60,"published_at":"2021-05-26T17:59:23.463Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"0.015037","ttl":60,"published_at":"2021-05-26T17:59:27.474Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"0.015499","ttl":60,"published_at":"2021-05-26T17:59:31.473Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"0.003645","ttl":60,"published_at":"2021-05-26T17:59:35.477Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.375441","ttl":60,"published_at":"2021-05-26T17:59:39.480Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.436877","ttl":60,"published_at":"2021-05-26T17:59:43.477Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.378765","ttl":60,"published_at":"2021-05-26T17:59:47.484Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.416600","ttl":60,"published_at":"2021-05-26T17:59:51.516Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.367921","ttl":60,"published_at":"2021-05-26T17:59:55.366Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.395679","ttl":60,"published_at":"2021-05-26T17:59:59.376Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.482550","ttl":60,"published_at":"2021-05-26T18:00:03.422Z","coreid":"1c002a001247353236343033"}
+
+event: ratio
+data: {"data":"1.447387","ttl":60,"published_at":"2021-05-26T18:00:07.456Z","coreid":"1c002a001247353236343033"}
+
