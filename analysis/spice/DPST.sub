@@ -1,0 +1,8 @@
+.subckt DPST 1 2 3 4 5 6
+S1 1 5 n001 3 SW_NC
+S2 5 6 n001 3 SW_NO
+R1 4 5 0.1
+R2 2 n001 200
+.model SW_NC SW(Ron=6 Roff=1G Vt=0.5 Vh=0.4)
+.model SW_NO SW(Ron=1G Roff=6 Vt=0.5 Vh=0.4)
+.ends DPST

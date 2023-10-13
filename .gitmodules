@@ -1,0 +1,3 @@
+[submodule "IceSensorThermoCouple/SparkCore-MAX31855"]
+	path = IceSensorThermoCouple/SparkCore-MAX31855
+	url = git@github.com:technobly/SparkCore-MAX31855.git

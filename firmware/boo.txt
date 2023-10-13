@@ -1,0 +1,129 @@
+// This #include statement was automatically added by the Particle IDE.
+#include <Adafruit_MAX31855.h>
+#include "math.h"
+#include <ThingSpeak.h>
+
+// Resistors in the circuit.
+const int R1 = 81982;
+const int R2 = 11955055;
+
+// Update these to talk to ThingSpeak
+const unsigned long myChannelNumber = 1660146;
+const char * myWriteAPIKey = "41AQ9ZTJB8SLJ6NU";
+
+// Pins used in the circuit
+const int pinInt  = D1;
+const int pinTrig = D3;
+const int thermoCLK = A3;
+const int thermoCS = A2;
+const int thermoDO = A4;
+
+const float CPU_PERIOD = 8.3333;
+const int R_freq_high = R1;
+const int R_freq_low = R2 + R1;
+const float R_RATIO = (float)(R_freq_low)/(float)(R_freq_high);
+
+volatile float ratio;
+volatile uint32_t trig;
+volatile uint32_t start;
+volatile uint32_t period;
+volatile float temp = 0;
+volatile bool do_publish = false;
+
+TCPClient client;
+Adafruit_MAX31855 thermocouple(thermoCLK, thermoCS, thermoDO);
+
+
+void ISR()
+{
+  trig = System.ticks();
+  period = trig - start;
+  start = trig;
+}
+
+void publish() {
+    Particle.publish("period_high", String(period_high), PUBLIC);
+    Particle.publish("period_low", String(period_low), PUBLIC);
+    Particle.publish("ratio", String(ratio), PUBLIC);
+    Particle.publish("temp", String(temp), PUBLIC);
+
+    ThingSpeak.setField(1, period_high);
+    ThingSpeak.setField(2, period_low);
+    ThingSpeak.setField(3, ratio);
+    ThingSpeak.setField(4, temp);
+    ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
+}
+
+
+void setup() {
+  pinMode(pinInt, INPUT);
+  pinMode(pinTrig, OUTPUT);
+  start = System.ticks();
+  attachInterrupt(pinInt, ISR, RISING);
+  
+  Serial.begin(115200);
+  while(!Serial.available()) SPARK_WLAN_Loop();
+
+  Particle.variable("ratio", ratio);
+  Particle.variable("temp", temp);
+  Particle.variable("period_high", period_high);
+  Particle.variable("period_low", period_low);
+
+  ThingSpeak.begin(client);
+  delay(1000);
+}
+
+void loop(){
+  if (trig != 0){
+
+    // Measure low frequencies
+    digitalWrite(pinTrig, HIGH);
+    // Delay helps oscillator stabilize on new frequency.
+    delay(2000);
+    long period_high = period*CPU_PERIOD;
+    
+    Serial.print("Period Low: ");
+    Serial.println(" us");
+    
+    Serial.print("Freq High: ");
+    Serial.print(1e6/(period_high));
+    Serial.println(" kHz");
+    Serial.println("");
+    delay(10000);
+    
+    // Measure high frequencies
+    digitalWrite(pinTrig, LOW);
+    // Delay helps oscillator stabilize on new frequency.
+    delay(2000);
+
+    long period_low = period*CPU_PERIOD;
+    Serial.print("Period Low: ");
+    Serial.print(period_low);
+    Serial.println(" us");
+    
+    Serial.print("Freq High: ");
+    Serial.print(1e9/(period_low));
+    Serial.println(" Hz");
+    Serial.println("");
+    
+    ratio = 1/(R_RATIO * ((float)period_high / (float)period_low));
+    Serial.print("Ratio: ");
+    Serial.println(ratio);
+    delay(10000);
+
+    while(isnan(temp)){ 
+        temp = thermocouple.readCelsius();
+        Serial.println("Something wrong with thermocouple!");
+        delay(1000);
+    }
+    Serial.printf("Temperature: %0.2f deg F\n\r", temp);
+
+    // Allows us to run in Serial-only mode and not pollute ThingSpeak.
+    if(do_publish) publish();
+
+    delay(15000);
+  }
+}
+
+
+

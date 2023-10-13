@@ -12,8 +12,7 @@ volatile uint64_t prev_period = 60;               // Not used, but if used (for 
 hw_timer_t * timer = NULL;                        // pointer to a variable of type hw_timer_t
 
 
-void IRAM_ATTR handleInterrupt()
-{
+void IRAM_ATTR handleInterrupt(){
   uint64_t TempVal = timerRead(timer);            // value of timer at interrupt
   PeriodCount = TempVal - StartValue;             // period count between rising edges
   StartValue = TempVal;                           // puts latest reading as start for next calculation

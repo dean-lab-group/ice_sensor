@@ -1,0 +1,241 @@
+#include <math.h>
+
+/*
+	
+	Example application for doing FFT on a Particle Photon and sending the data to Processing on a computer
+	
+	Designed for Phyiscal Computing Studio, Spring 2016, IDeATe @ Carnegie Mellon University: http://courses.ideate.cmu.edu/physcomp/s16/48-390/
+	Inspired by Adafruit's FFT: Fun with Fourier Transforms tutorial: https://learn.adafruit.com/fft-fun-with-fourier-transforms/software
+	FFT function from Paul Bourke: http://paulbourke.net/miscellaneous/dft/
+	TCP connection code provided by Alex Alspach
+*/
+
+
+// DEFINES =====
+#define FFT_FORWARD 1
+#define FFT_REVERSE -1
+
+// PINS =====
+const int AUDIO_INPUT_PIN = A0;
+const int BOARD_LED_PIN = D7;
+
+// TCP INITIALIZATION =====
+TCPServer server = TCPServer(23);
+TCPClient client;
+
+String sendString;
+
+String localip = "";
+String subnetmask = "";
+String gatewayip = "";
+String ssid = "";
+
+// FFT INITILIZATION =====
+// set the sizes for the FFT
+const int m = 8;
+const int FFT_SIZE = pow(2, m);
+
+// initialize the buffers for the FFT
+float samples[FFT_SIZE * 2];
+float imagine[FFT_SIZE * 2];
+int sampleCounter = 0;
+
+// flag that lets us know when we should or shouldn't fill the buffer
+bool fillBuffer = false;
+
+
+// DEFAULT FUNCTIONS =====
+
+void setup() {
+
+	// Set up ADC and audio input.
+	pinMode(AUDIO_INPUT_PIN, INPUT);
+
+	// Turn on the power indicator LED.
+	pinMode(BOARD_LED_PIN, OUTPUT);
+	digitalWrite(BOARD_LED_PIN, HIGH);
+
+	// serial can be read with `screen ADDRESS BAUD`
+	// where the ADDRESS can be found with `ls /dev/tty.usb*`
+	// and the baud rate is 115200
+	Serial.begin(115200);
+	Serial.println("Hello, World!");
+
+
+	// set up tcp connection by grabbing variables from the cloud
+	sendString.reserve(20);
+	
+	// grab the photon's IP
+	localip = WiFi.localIP();
+	Particle.variable("localip", localip);
+	
+	// grab the photon's subnet mask
+	subnetmask = WiFi.subnetMask();
+	Particle.variable("subnetmask", subnetmask);
+	
+	// grab the router's ip
+	gatewayip = WiFi.gatewayIP();
+	Particle.variable("gatewayip", gatewayip);
+	
+	// grab the network name
+	ssid = WiFi.SSID();
+	Particle.variable("ssid", ssid);
+
+	// start listening for clients
+	server.begin();
+	
+
+	// begin sampling the audio pin
+	startSampling();
+}
+
+void loop() {
+
+	// if we're currently filling the buffer
+	if (fillBuffer == true) {
+		// read from the input pin and start filling the buffer
+		samples[sampleCounter] = analogRead(AUDIO_INPUT_PIN);
+		// the buffer full of imaginary numbers for the FFT doesn't matter for our use, so fill it with 0s
+		imagine[sampleCounter] = 0.0;
+		
+		// increment the counter so we can tell when the buffer is full
+		sampleCounter++;
+	}
+
+	// if the buffer is full
+	if (samplingIsDone()) {
+		
+		// stop sampling
+		stopSampling();
+		
+		// do the FFT
+ 		FFT(FFT_FORWARD, m, samples, imagine);
+
+
+		// if the client is connected to the server
+		if (client.connected()) {
+
+			// initialize an empty string, so we can fill it with data
+			sendString = "";
+		//	sendString += "START ";
+			//sendString += " ";
+			for (int i = 0; i < FFT_SIZE; i++) {
+				// add samples to the string and separate them with spaces
+				 sendString += String(imagine[i]);
+			//	sendString += String(i * 2);
+				sendString += " ";
+			}
+			sendString += "END";
+ 		//	sendString += "\n";
+
+			// write the string to the server
+			server.write(sendString);
+        
+
+		} else {
+			delay(100);
+			client = server.available();
+		}
+		
+		// start sampling again
+		startSampling();
+	}
+}
+
+// EXTRA FUNCTIONS =====
+
+void startSampling() {
+	sampleCounter = 0;
+	fillBuffer = true;
+}
+
+void stopSampling() {
+	fillBuffer = false;
+}
+
+bool samplingIsDone() {
+	return sampleCounter >= FFT_SIZE * 2;
+}
+
+short FFT(short int dir, int m, float *rx, float *iy) {
+	
+	/*
+	FFT() from Paul Bourke: http://paulbourke.net/miscellaneous/dft/
+	as referenced by @phec on the Particle forums: https://community.particle.io/t/fast-fourier-transform-library/3784/4
+	This computes an in-place complex-to-complex FFT 
+	rx and iy are the real and imaginary arrays of 2^m points.
+	
+	dir gives FFT_FORWARD or FFT_REVERSE transform
+	rx is the array of real numbers on input, and the x coordinates on output
+	iy is the array of imaginary numbers on input, and the y coordinates on output
+	*/
+	
+	// \/ \/ \/ DO NOT EDIT THIS CODE UNLESS YOU KNOW WHAT YOU'RE DOING \/ \/ \/
+	
+	int n, i, i1, j, k, i2, l, l1, l2;
+	float c1, c2, tx, ty, t1, t2, u1, u2, z;
+
+	/* Calculate the number of points */
+	n = 1;
+	for (i=0;i<m;i++) 
+		n *= 2;
+
+	/* Do the bit reversal */
+	i2 = n >> 1;
+	j = 0;
+	for (i=0;i<n-1;i++) {
+		if (i < j) {
+			tx = rx[i];
+			ty = iy[i];
+			rx[i] = rx[j];
+			iy[i] = iy[j];
+			rx[j] = tx;
+			iy[j] = ty;
+		}
+		k = i2;
+		while (k <= j) {
+			j -= k;
+			k >>= 1;
+		}
+		j += k;
+	}
+
+	/* Compute the FFT */
+	c1 = -1.0; 
+	c2 = 0.0;
+	l2 = 1;
+	for (l=0;l<m;l++) {
+		l1 = l2;
+		l2 <<= 1;
+		u1 = 1.0; 
+		u2 = 0.0;
+		for (j=0;j<l1;j++) {
+			for (i=j;i<n;i+=l2) {
+				i1 = i + l1;
+				t1 = u1 * rx[i1] - u2 * iy[i1];
+				t2 = u1 * iy[i1] + u2 * rx[i1];
+				rx[i1] = rx[i] - t1; 
+				iy[i1] = iy[i] - t2;
+				rx[i] += t1;
+				iy[i] += t2;
+			}
+			z =  u1 * c1 - u2 * c2;
+			u2 = u1 * c2 + u2 * c1;
+			u1 = z;
+		}
+		c2 = sqrt((1.0 - c1) / 2.0);
+		if (dir == 1) 
+			c2 = -c2;
+		c1 = sqrt((1.0 + c1) / 2.0);
+	}
+
+	/* Scaling for forward transform */
+	if (dir == 1) {
+		for (i=0;i<n;i++) {
+			rx[i] /= n;
+			iy[i] /= n;
+		}
+	}
+
+	return(0);
+}
